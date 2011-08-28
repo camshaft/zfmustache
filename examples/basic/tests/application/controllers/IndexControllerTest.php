@@ -6,8 +6,11 @@ class IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
                 $this->bootstrap = new Zend_Application(APPLICATION_ENV, APPLICATION_PATH . '/configs/application.ini');
                 parent::setUp();
         }
-
-        public function testIndexAction() {
+        
+        /**
+         * Tests basic view rendering capability
+         */
+        public function testBasicRenderAction() {
                 $params = array('action' => 'index', 'controller' => 'index', 'module' => 'default');
                 $urlParams = $this->urlizeOptions($params);
                 $url = $this->url($urlParams);
@@ -22,5 +25,33 @@ class IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
                 $this->assertQueryContentContains('section p', 'This is the description');
                 $this->assertQueryContentContains('section div p', 'First content');
         }
-
+        
+        /**
+         * Tests the layout features
+         */
+        public function testLayoutRenderAction() {
+                Zend_Layout::startMvc();
+                $instance = Zend_Layout::getMvcInstance();
+                $instance->setLayoutPath(APPLICATION_PATH . '/views/layouts');
+                $instance->setViewSuffix('mustache');
+                
+                $this->testBasicRenderAction();
+                
+                $this->assertQueryContentContains('html head title', 'Layout test');
+        }
+        
+        /**
+         * Tests error rendering
+         */
+        public function testErrorRenderAction() {
+                $params = array('action' => 'error', 'controller' => 'index', 'module' => 'default');
+                $urlParams = $this->urlizeOptions($params);
+                $url = $this->url($urlParams);
+                $this->dispatch($url);
+                
+                // assertions
+                $this->assertModule($urlParams['module']);
+                $this->assertController('error');
+                $this->assertQueryContentContains('body p', 'Some weird error');
+        }
 }

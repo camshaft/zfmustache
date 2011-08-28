@@ -18,5 +18,4 @@ require_once 'Zend/Loader/Autoloader.php';
 Zend_Loader_Autoloader::getInstance();
 
 require_once APPLICATION_PATH . '/../../../Application/Resource/Mustache.php';
-require_once APPLICATION_PATH . '/../../../Application/Autoloader.php';
 require_once APPLICATION_PATH . '/../../../View.php';

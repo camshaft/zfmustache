@@ -28,7 +28,7 @@ and update the view renderer (unless enabled is set to false).
 Add the following to your *application.ini* to enable mustache views:
 
 	pluginpaths.Mustache_Application_Resource = "Mustache/Application/Resource"
-	resources.mustache.basePath = APPLICATION_PATH "/views/scripts" 
+	resources.mustache.basePath = APPLICATION_PATH "/views" 
 
 You can also set the directory in which the partials reside
 
@@ -38,7 +38,7 @@ You can also use mustache views only in specific controllers or actions. In that
 setting the view renderer has to be disabled:
 
 	pluginpaths.Mustache_Application_Resource = "Mustache/Application/Resource"
-	resources.mustache.basePath = APPLICATION_PATH "/views/scripts"
+	resources.mustache.basePath = APPLICATION_PATH "/views"
 	resources.mustache.enabled = false
 
 After that the bootstrapped mustache view can be retrieved in any controller:

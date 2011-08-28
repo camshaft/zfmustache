@@ -3,24 +3,18 @@
 class Mustache_Application_Resource_Mustache extends Zend_Application_Resource_ResourceAbstract {
 
         /**
-         * The default configuration
-         * 
-         * @var array
-         */
-        static $DEFAULTS = array(
-            'basePath' => '/views',
-            'partialPath' => NULL,
-            'suffix' => 'mustache',
-            'enabled' => true);
-
-        /**
          * (non-PHPdoc)
          * @see Zend_Application_Resource_Resource::init()
          * @return Mustache_View
          */
         public function init() {
-                $this->_pushAutoloader();
-                $options = $this->mergeOptions(self::$DEFAULTS, $this->getOptions());
+                $options = $this->mergeOptions(array(
+                            'basePath' => APPLICATION_PATH . '/views',
+                            'partialPath' => NULL,
+                            'suffix' => 'mustache',
+                            'enabled' => true),
+                    $this->getOptions()
+                );
                 extract($options); // $basePath, $partialPath, $suffix, $enabled
                 $view = new Mustache_View();
                 $view->setBasePath($basePath);
@@ -28,11 +22,11 @@ class Mustache_Application_Resource_Mustache extends Zend_Application_Resource_R
                 if ($partialPath !== NULL) {
                         if (is_array($partialPath)) {
                                 foreach ($partialPath as $path) {
-                                        $engine->addPartialDirectory(APPLICATION_PATH . $path);
+                                        $engine->addPartialDirectory($path);
                                 }
                         }
                         else {
-                                $engine->addPartialDirectory(APPLICATION_PATH . $partialPath);
+                                $engine->addPartialDirectory($partialPath);
                         }
                 }
                 if ($enabled) {
@@ -44,15 +38,6 @@ class Mustache_Application_Resource_Mustache extends Zend_Application_Resource_R
                         }
                 }
                 return $view;
-        }
-
-        /**
-         * 
-         */
-        protected function _pushAutoloader() {
-                $loader = Zend_Loader_Autoloader::getInstance();
-                $loader->registerNamespace('Mustache');
-                $loader->pushAutoloader(new Mustache_Application_Autoloader(), 'Mustache');
         }
 
 }

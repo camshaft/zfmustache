@@ -14,6 +14,10 @@ class IndexController extends Zend_Controller_Action {
                 
                 $this->view->model = $model;
         }
+        
+        public function errorAction() {
+                throw new Exception('Some weird error');
+        }
 
 }
 

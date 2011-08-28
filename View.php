@@ -21,6 +21,7 @@ class Mustache_View extends Zend_View_Abstract {
          * Initialize the Mustache engine
          */
         public function init() {
+                require_once dirname(__FILE__) . '/vendor/mustache/Mustache.php';
                 $this->_mustache = new Mustache(null, null, null, array('charset' => $this->getEncoding()));
         }
 
