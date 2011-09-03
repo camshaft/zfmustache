@@ -16,6 +16,7 @@ class Mustache_Application_Resource_Mustache extends Zend_Application_Resource_R
                     $this->getOptions()
                 );
                 extract($options); // $basePath, $partialPath, $suffix, $enabled
+                require_once dirname(__FILE__) . '/../../View.php';
                 $view = new Mustache_View();
                 $view->setBasePath($basePath);
                 $engine = $view->getEngine();
