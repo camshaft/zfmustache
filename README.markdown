@@ -18,6 +18,14 @@ Add zfmustache as a submodule in your project:
 
 > cd library/Mustache
 
+> git submodule init
+
+> git submodule update
+
+> cd vendor/mustache
+
+> git submodule init
+
 > git submodule update
 
 Use it
